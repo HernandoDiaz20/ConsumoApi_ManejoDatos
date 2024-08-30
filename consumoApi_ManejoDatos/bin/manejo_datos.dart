@@ -3,21 +3,15 @@ import 'package:http/http.dart' as http;
 import '../lib/user.dart';
 
 void main() async {
-  // URL de la API
   final url = Uri.parse('https://jsonplaceholder.typicode.com/users');
 
-  // Realizar la petición GET
   final response = await http.get(url);
 
-  // Verificar si la petición fue exitosa
   if (response.statusCode == 200) {
-    // Parsear la respuesta JSON a una lista
     List<dynamic> jsonData = json.decode(response.body);
 
-    // Crear una lista de User
     List<User> users = jsonData.map((json) => User.fromJson(json)).toList();
 
-    // Mostrar los datos de los usuarios
     users.forEach((user) {
       print('ID: ${user.id}');
       print('Name: ${user.name}');
@@ -34,7 +28,6 @@ void main() async {
       print('--------------------------------------------------------');
     });
 
-    // Mostrar los resultados de las operaciones adicionales
     print('Usuarios con nombre de usuario con más de 6 caracteres:');
     filtrarUsuariosConUsernameLargo(users)
         .forEach((user) => print(user.username));
@@ -43,7 +36,6 @@ void main() async {
     print(
         '\nCantidad de usuarios con email del dominio "biz": $cantidadBizEmails');
   } else {
-    // Manejo de errores
     print('Error al obtener los datos: ${response.statusCode}');
   }
 }
